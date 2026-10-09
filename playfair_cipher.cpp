@@ -100,14 +100,26 @@ class PLAYFAIR_CIPHER{
                 char c1 = uppertext[i];
                 char c2 = uppertext[i+1];
                 if(c1 == c2){
-                    uppertext.insert(i+1, 1, 'X');
+                    // uppertext.insert(i+1, 1, 'X');
+                    uppertext += uppertext[len_text-1];
                     len_text++;
-                }
+                    
+                    char c3 = uppertext[i+2];
+                    uppertext[i+1] = 'X';
+                    uppertext[i+2] = c2;
+                    char temp_before = c3;
+                    for(int j=i+3;j<len_text;j++){
+                        char temp_curr = uppertext[j];
+                        uppertext[j] = temp_before;
+                        temp_before = temp_curr;
+                    }
+                } 
             }
+
             if(len_text % 2 == 1){
                 uppertext += 'X';
                 len_text += 1;
-            }
+            } std::cout << uppertext << std::endl;
         }
 
         std::string checkText(){
@@ -192,7 +204,7 @@ void NewLine(){
 }
 
 int main(){
-    std::string plaintext = "aabbccdd";
+    std::string plaintext = "hallorekk";
     std::string keywords = "sainsdata";
     PLAYFAIR_CIPHER PC(&plaintext, &keywords);
     std::string encryptedtext = PC.process();
@@ -211,16 +223,3 @@ int main(){
 // Satu baris: ganti dengan huruf di kanannya. Contoh ar menjadi RM.
 // Satu kolom: ganti dengan huruf di bawahnya. Contoh mumenjadi CM.
 // Selain itu: ambil huruf pada baris sendiri dan kolom pasangannya. Contoh hs menjadi BP.
-
-
-// char c3 = uppertext[i+2];
-// uppertext[i+2] = c2;
-// uppertext[i+1] = 'X';
-// int z = 0;
-// char temp_before = c3;
-// for(int j=i+3;j<len_text;j++){
-//     char temp_curr = uppertext[j+z-1];
-//     uppertext[j+z-1] = temp_before;
-//     temp_before = temp_curr;
-//     z++;
-// }
