@@ -180,7 +180,7 @@ class KNN_REGRESI{
             for(int i=0;i<(*PTR_X).size();i++){
                 float x1_norm = (*PTR_X)[i][0];
                 float x2_norm = (*PTR_X)[i][1];
-                X_norm.push_back({1.0, x1_norm, x2_norm});
+                X_norm.push_back({normalize(x1_norm, X1_MIN, X2_MAX), normalize(x2_norm, X2_MIN, X2_MAX)});
             }
             
             // normalize all X new data
@@ -205,7 +205,12 @@ class KNN_REGRESI{
         }
 
          std::vector<int> sorting(){
-            std::vector<int> indexs = {0,1,2,3,4,5};
+            int len_idx = EUCLID_DIST.size();
+            std::vector<int> indexs(len_idx);
+            for(int i = 0; i < len_idx; i++) {
+                indexs[i] = i;
+            }
+
             int len = EUCLID_DIST.size();
             for(int i=0; i<len;i++){
                 for(int j=0; j<len-i-1;j++){
@@ -227,7 +232,7 @@ class KNN_REGRESI{
         }
 
         float getResultMean(){
-            float temp_flt;
+            float temp_flt = 0.0f;
             for(int i=0; i<N;i++){
                 temp_flt += (*PTR_Y)[i];
             }
@@ -427,5 +432,5 @@ int main(){
 // 1. https://www.jdoodle.com/online-compiler-c++
 // 2. https://www.onlinegdb.com/online_c++_compiler
 // run this command below in terminal, ctrl + shift + `. then run the file.exe that and the csv and the answers is da
-// g++ -o tes KA.cpp
+// g++ -o exes/KA KA.cpp
 // Noted: hhhh, im made for 1D predict output, i forget to turn input into 2D. in euclidean distance is for 1d

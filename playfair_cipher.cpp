@@ -204,8 +204,8 @@ void NewLine(){
 }
 
 int main(){
-    std::string plaintext = "hallorekk";
-    std::string keywords = "sainsdata";
+    std::string plaintext = "kriptografi";
+    std::string keywords = "sekuriti";
     PLAYFAIR_CIPHER PC(&plaintext, &keywords);
     std::string encryptedtext = PC.process();
 
